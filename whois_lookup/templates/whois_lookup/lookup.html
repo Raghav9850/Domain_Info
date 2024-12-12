@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Information</title>
+    <link rel="shortcut icon" href="https://th.bing.com/th/id/R.1b7182e56931aacd2f92ceef965fafa2?rik=%2bPRHU9FG2fbYLA&riu=http%3a%2f%2fpluspng.com%2fimg-png%2fdomain-icon-png-50-px-1600.png&ehk=1mmDJF2qDvo3u%2bpmDcuJBPvZoHvOqlY2qTo3DUsO6CI%3d&risl=&pid=ImgRaw&r=0" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* body{
+            background-image: linear-gradient(135deg, #B7F8DB 10%, #50A7C2 100%);;
+        } */
+
+         *{
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+         }
+
+        body{
+            background-color: #eee;
+        }
+    </style>
+</head>
+<body class="">
+    <div class="container mt-5 bg-white w-50" style="border: 1px solid #fff; padding: 50px; box-shadow: 2px 3px 5px rgba(255, 255, 255, 0.2); border-radius: 15px;">
+        <h1 class="text-center text-black">Find Domain Info</h1>
+        <form method="POST" class="my-4">
+            {% csrf_token %}
+            <div class="input-group mb-3">
+                <input type="text" name="domain" class="form-control py-3 px-4" autofocus placeholder="Enter domain (e.g., example.com)" required>
+                <button class="btn btn-primary" type="submit">Search</button>
+            </div>
+        </form>
+        {% if error %}
+            <div class="alert alert-danger">{{ error }}</div>
+        {% endif %}
+        {% if domain_info %}
+            <h3>Domain Details:</h3>
+            <table class="table table-bordered">
+                <tbody>
+                    {% for key, value in domain_info.items %}
+                        <tr>
+                            <th>{{ key|capfirst }}</th>
+                            <td>
+                                {% if value is list %}
+                                    {{ value|join:", " }}
+                                {% else %}
+                                    {{ value }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+    <footer class="text-center mt-5 py-3 bg-dark text-light rounded-0" style="position: absolute; bottom: 0px; width: 100%;">
+        <p>&copy; 2024 All rights reserved | <strong>Raghavendra Borse</strong> | <a href="https://www.linkedin.com/in/raghavendra-borse-37322416b" target="_blank" class="text-info">LinkedIn</a></p>
+    </footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
